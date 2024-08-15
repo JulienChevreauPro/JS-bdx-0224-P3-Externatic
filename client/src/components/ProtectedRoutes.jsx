@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 
-function ProtectedRoute({ element, roles }) {
+function ProtectedRoute({ element, requiredRole }) {
+
   const { auth } = useContext(AuthContext);
 
-  return auth && roles.includes(auth?.role) ? (
+  return auth && requiredRole === auth?.role ? (
     element
   ) : (
     <Navigate to="/" replace />
@@ -14,8 +15,8 @@ function ProtectedRoute({ element, roles }) {
 }
 
 ProtectedRoute.propTypes = {
-  element: PropTypes.elementType.isRequired,
-  roles: PropTypes.string.isRequired,
+  element: PropTypes.element.isRequired,
+  requiredRole: PropTypes.string.isRequired,
 };
 
 export default ProtectedRoute;

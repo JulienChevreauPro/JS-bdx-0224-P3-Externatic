@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function Button({ name, img, apply, handleChange, buttonAnimate }) {
+function Button({ name, img = null, apply, handleChange, buttonAnimate = true }) {
   return (
     <button
       onClick={handleChange}
@@ -14,13 +14,12 @@ function Button({ name, img, apply, handleChange, buttonAnimate }) {
 }
 Button.propTypes = {
   name: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
   img: PropTypes.string,
   apply: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/require-default-props
   buttonAnimate: PropTypes.bool,
 };
-Button.defaultProps = {
-  buttonAnimate: true,
-  img: null,
-};
+
 export default Button;

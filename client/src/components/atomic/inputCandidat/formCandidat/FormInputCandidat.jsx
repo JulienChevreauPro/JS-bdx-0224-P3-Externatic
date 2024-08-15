@@ -7,7 +7,7 @@ export default function FormInputCandidat({
   handleChange,
   name,
   value,
-  placeholder,
+  placeholder = "",
 }) {
   return (
     <label
@@ -50,9 +50,6 @@ FormInputCandidat.propTypes = {
     PropTypes.number,
     PropTypes.bool,
   ]).isRequired,
+  // eslint-disable-next-line react/require-default-props
   placeholder: PropTypes.string,
-};
-
-FormInputCandidat.defaultProps = {
-  placeholder: "",
 };

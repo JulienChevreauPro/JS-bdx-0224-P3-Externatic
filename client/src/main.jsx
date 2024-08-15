@@ -42,14 +42,14 @@ const router = createBrowserRouter([
       {
         path: "/offers/:id",
         element: (
-          <ProtectedRoute element={<OfferDetails />} roles={["candidat"]} />
+          <ProtectedRoute element={<OfferDetails />} requiredRole="candidat" />
         ),
         loader: ({ params }) => fetchApi(`${offersUrl}/${params.id}`),
       },
       {
         path: "candidacy/:offerId",
         element: (
-          <ProtectedRoute element={<CandidacyPage />} roles={["candidat"]} />
+          <ProtectedRoute element={<CandidacyPage />} requiredRole="candidat" />
         ),
         loader: () => fetchApi(usersUrl),
       },
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={<CreateOfferPage />}
-            roles={["consultant"]}
+            requiredRole="consultant"
           />
         ),
         loader: async () => fetchMultipleApis(urls),
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={<DashboardConsultant />}
-            roles={["consultant"]}
+            requiredRole="consultant"
           />
         ),
         loader: ({ params }) => fetchApi(`${usersUrl}/${params.id}`),
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={<DashboardCandidate />}
-            roles={["candidat"]}
+            requiredRole="candidat"
           />
         ),
         loader: ({ params }) => fetchApi(`${usersUrl}/${params.id}`),
@@ -88,7 +88,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={<CandidateManagement />}
-            roles={["consultant"]}
+            requiredRole="consultant"
           />
         ),
         loader: ({ params }) =>

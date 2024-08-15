@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useRef, useEffect, useState, useContext } from "react";
+import { useRef, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import useLogicForm from "../services/useLogicForm";
@@ -14,14 +14,6 @@ import ProfilCondition from "./ProfilCondition";
 
 function Navbar({ handleChangeNav, isNavOpen, isNavVisible }) {
   const userData = useContext(AuthContext);
-
-  const [authId, setAuthId] = useState(null);
-
-  useEffect(() => {
-    if (userData.auth?.id !== authId) {
-      setAuthId(userData.auth?.id);
-    }
-  }, [userData, authId]);
 
   const menuRef = useRef(null);
   const { handleChangeModal, setIsClicked } = useModal();
@@ -85,7 +77,8 @@ function Navbar({ handleChangeNav, isNavOpen, isNavVisible }) {
           md:min-h-20 md:min-w-full md:bg-[var(--secondary-background-color)] md:translate-x-0 md:flex`}
       >
         <Button
-          name={<img src={cross} alt="fermer le menu" />}
+          name="fermer le menu"
+          img={cross}
           buttonAnimate={false}
           apply="navCross"
           handleChange={handleChangeNav}
@@ -108,7 +101,6 @@ function Navbar({ handleChangeNav, isNavOpen, isNavVisible }) {
             <ProfilCondition
               handleChangeNav={handleChangeNav}
               handleClick={handleClick}
-              authId={authId}
               userData={userData}
             />
           </li>

@@ -8,7 +8,7 @@ import Reload from "../services/reload";
 export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
-  const [auth, setAuth] = useState({ role: null, id: null });
+  const [auth, setAuth] = useState({ role: null, id: 0 });
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -2,16 +2,16 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Button from "./atomic/buttons/Button";
 
-function ProfilCondition({ handleChangeNav, handleClick, authId, userData }) {
+function ProfilCondition({ handleChangeNav, handleClick, userData }) {
   return (
     <>
       {userData.auth?.role === "consultant" && (
-        <Link to={`/dashboardConsultant/${authId}`} onClick={handleChangeNav}>
+        <Link to={`/dashboardConsultant/${userData.auth.id}`} onClick={handleChangeNav}>
           Gestion
         </Link>
       )}
       {userData.auth?.role === "candidat" && (
-        <Link to={`/dashboardCandidate/${authId}`} onClick={handleChangeNav}>
+        <Link to={`/dashboardCandidate/${userData.auth.id}`} onClick={handleChangeNav}>
           Profil
         </Link>
       )}
@@ -31,10 +31,9 @@ function ProfilCondition({ handleChangeNav, handleClick, authId, userData }) {
 ProfilCondition.propTypes = {
   handleChangeNav: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
-  authId: PropTypes.string.isRequired,
   userData: PropTypes.shape({
     auth: PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.number,
       role: PropTypes.string,
     }),
   }).isRequired,

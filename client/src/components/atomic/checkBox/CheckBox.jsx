@@ -14,7 +14,9 @@ function CheckBox({ apply, labelContent }) {
 
 CheckBox.propTypes = {
   apply: PropTypes.string.isRequired,
-  labelContent: PropTypes.string.isRequired,
+  labelContent: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,]).isRequired,
 };
 
 export default CheckBox;
