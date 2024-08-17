@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-function PreviousPage({ source, marginLeft }) {
+function PreviousPage({ source, marginLeft="" }) {
   return (
     <Link
       to={source}
@@ -28,11 +28,8 @@ function PreviousPage({ source, marginLeft }) {
 
 PreviousPage.propTypes = {
   source: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
   marginLeft: PropTypes.string,
-};
-
-PreviousPage.defaultProps = {
-  marginLeft: "0",
 };
 
 export default PreviousPage;

@@ -61,23 +61,6 @@ CREATE TABLE region (
     REFERENCES consultant(id)
 );
 
-CREATE TABLE job (
-  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  name VARCHAR(80) NOT NULL
-);
-
-CREATE TABLE job_candidate (
-  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  job_id INT UNSIGNED NOT NULL,
-  candidate_id INT UNSIGNED NOT NULL,
-    CONSTRAINT fk_job_candidate_job
-    FOREIGN KEY (job_id)
-    REFERENCES job(id),
-    CONSTRAINT fk_job_candidate_candidate
-    FOREIGN KEY (candidate_id)
-    REFERENCES candidate(id)
-);
-
 CREATE TABLE techno (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(80) NOT NULL
@@ -102,8 +85,6 @@ CREATE TABLE company (
   logo VARCHAR(255),
   description TEXT
 );
-
-
 
 CREATE TABLE offer (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,

@@ -93,6 +93,7 @@ class OfferRepository extends AbstractRepository {
                 offer.title,
                 offer.type,
                 offer.details,
+                offer.salary,
                 offer.city,
                 company.name AS company_name,
                 (

@@ -1,46 +1,46 @@
-import { useContext, useState } from "react";
+// import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 
 import Tag from "../tag/Tag";
-import { AuthContext } from "../../../contexts/AuthContext";
+// import { AuthContext } from "../../../contexts/AuthContext";
 import { useModal } from "../../../contexts/ModalContext";
 import AccessOfferDetailsCondition from "../../AccessOfferDetailsCondition";
 
 export default function CardOfferForCandidate({ offer }) {
-  const { auth } = useContext(AuthContext);
+  // const { auth } = useContext(AuthContext);
   const { handleChangeModal } = useModal();
-  const [isFavorite, setIsFavorite] = useState(offer.is_favorite);
+  // const [isFavorite, setIsFavorite] = useState(offer.is_favorite);
 
-  const handleCheckboxChange = async (e) => {
-    const isChecked = e.target.checked;
-    const url = `${import.meta.env.VITE_API_URL}/api/favorites`;
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    const body = JSON.stringify({ candidateId: auth.id, offerId: offer.id });
+  // const handleCheckboxChange = async (e) => {
+  //   const isChecked = e.target.checked;
+  //   const url = `${import.meta.env.VITE_API_URL}/api/favorites`;
+  //   const headers = {
+  //     "Content-Type": "application/json",
+  //   };
+  //   const body = JSON.stringify({ candidateId: auth.id, offerId: offer.id });
 
-    try {
-      let response;
-      if (isChecked) {
-        response = await fetch(url, {
-          method: "POST",
-          headers,
-          body,
-        });
-      } else {
-        response = await fetch(url, {
-          method: "DELETE",
-          headers,
-          body,
-        });
-      }
-      if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
-      setIsFavorite(isChecked);
-    } catch (err) {
-      throw new Error("Error handling favorite", err);
-    }
-  };
+    // try {
+    //   let response;
+    //   if (isChecked) {
+    //     response = await fetch(url, {
+    //       method: "POST",
+    //       headers,
+    //       body,
+    //     });
+    //   } else {
+    //     response = await fetch(url, {
+    //       method: "DELETE",
+    //       headers,
+    //       body,
+    //     });
+    //   }
+    //   if (!response.ok)
+    //     throw new Error(`HTTP error! status: ${response.status}`);
+    //   setIsFavorite(isChecked);
+    // } catch (err) {
+    //   throw new Error("Error handling favorite", err);
+    // }
+  // };
 
   return (
     <article className="animate-fade-up animate-once animate-duration-700 animate-delay-200 animate-ease-in-out animate-alternate border border-[var(--primary-color)] rounded-md shadow-lg custom-shadow min-h-56 p-4 bg-[var(--secondary-background-color)] mb-4 max-w-md min-w-[18rem] md:min-w-md">
@@ -48,7 +48,7 @@ export default function CardOfferForCandidate({ offer }) {
         <h3 className="text-[var(--primary-color)] max-md:text-lg">
           {offer.title}
         </h3>
-        {auth?.id && (
+        {/* {auth?.id && (
           <label className="peer text-[0] cursor-pointer">
             favoris
             <input
@@ -73,7 +73,7 @@ export default function CardOfferForCandidate({ offer }) {
               />
             </svg>
           </label>
-        )}
+        )} */}
       </header>
       <ul className="flex gap-1 relative mb-4">
         {offer.technos.map((techno) => (
@@ -118,6 +118,6 @@ CardOfferForCandidate.propTypes = {
         name: PropTypes.string.isRequired,
       })
     ).isRequired,
-    is_favorite: PropTypes.bool.isRequired,
+    // is_favorite: PropTypes.bool.isRequired,
   }).isRequired,
 };

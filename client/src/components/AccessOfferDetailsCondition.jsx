@@ -32,7 +32,7 @@ function AccessOfferDetailsCondition({ handleClick, offerId }) {
 
 AccessOfferDetailsCondition.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  offerId: PropTypes.string.isRequired,
+  offerId: PropTypes.number.isRequired,
 };
 
 export default AccessOfferDetailsCondition;

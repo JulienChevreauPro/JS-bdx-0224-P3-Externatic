@@ -120,6 +120,7 @@ function CreateOfferPage() {
           id="city"
           name="city"
           label="Ville"
+          type="text"
           value={formData.city}
           handleChange={handleChange}
         />
@@ -143,6 +144,7 @@ function CreateOfferPage() {
         <FormInputConsultant
           id="salary"
           name="salary"
+          type="text"
           label="Salaire annuel proposé (en Euro)"
           value={formData.salary}
           handleChange={handleChange}
