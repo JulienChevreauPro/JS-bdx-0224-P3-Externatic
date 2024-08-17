@@ -23,7 +23,7 @@ import CandidacyPage from "./pages/CandidacyPage";
 const offersUrl = "/api/offers";
 const technosUrl = "/api/technos";
 const companiesUrl = "/api/companies";
-const urls = [technosUrl, companiesUrl];
+const urls = [technosUrl, companiesUrl, offersUrl];
 const usersUrl = "/api/users";
 
 const router = createBrowserRouter([
@@ -42,14 +42,20 @@ const router = createBrowserRouter([
       {
         path: "/offers/:id",
         element: (
-          <ProtectedRoute element={<OfferDetails />} requiredRoles={["candidat", "consultant"]} />
+          <ProtectedRoute
+            element={<OfferDetails />}
+            requiredRoles={["candidat", "consultant"]}
+          />
         ),
         loader: ({ params }) => fetchApi(`${offersUrl}/${params.id}`),
       },
       {
         path: "candidacy/:offerId",
         element: (
-          <ProtectedRoute element={<CandidacyPage />} requiredRoles={["candidat"]} />
+          <ProtectedRoute
+            element={<CandidacyPage />}
+            requiredRoles={["candidat"]}
+          />
         ),
         loader: () => fetchApi(usersUrl),
       },

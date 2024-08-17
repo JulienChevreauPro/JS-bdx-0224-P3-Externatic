@@ -2,10 +2,10 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate, useLoaderData } from "react-router-dom";
 
 import createOffer from "../services/createOffer";
+
 import ReturnButton from "../components/atomic/buttons/PreviousPage";
 import FormInputConsultant from "../components/atomic/inputConsultant/formConsultant/FormInputConsultant";
 import FormDropDown from "../components/atomic/inputConsultant/formConsultant/FormDropDown";
-
 import ButtonSubmit from "../components/atomic/buttons/ButtonSubmit";
 
 import { AuthContext } from "../contexts/AuthContext";
@@ -22,7 +22,7 @@ function CreateOfferPage() {
   
   const navigate = useNavigate();
   const offersUrl = "/api/offers";
-  const [technos, companies] = useLoaderData();
+  const [technos, companies, offers] = useLoaderData();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -88,12 +88,7 @@ function CreateOfferPage() {
           name="title"
           multiple={false}
           handleChange={handleChange}
-          options={[
-            { name: "Développeur Web", id: "Développeur Web" },
-            { name: "Développeur FullStack", id: "Développeur FullStack" },
-            { name: "Développeur FrontEnd", id: "Développeur FrontEnd" },
-            { name: "Développeur BackEnd", id: "Développeur BackEnd" },
-          ]}
+          options={offers.title}
         />
         <FormDropDown
           id="type"
@@ -101,12 +96,7 @@ function CreateOfferPage() {
           name="type"
           multiple={false}
           handleChange={handleChange}
-          options={[
-            { name: "CDI", id: "CDI" },
-            { name: "CDD", id: "CDD" },
-            { name: "Alternance", id: "Alternance" },
-            { name: "FreeLance", id: "FreeLance" },
-          ]}
+          options={offers.type}
         />
         <FormDropDown
           id="techno"
