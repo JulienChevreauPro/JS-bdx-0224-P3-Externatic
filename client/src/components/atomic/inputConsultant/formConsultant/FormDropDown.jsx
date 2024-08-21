@@ -8,6 +8,7 @@ export default function FormDropDown({
   options,
   handleChange,
 }) {
+
   return (
     <label
       className="w-[34rem] flex flex-col mb-4 gap-4 text-[var(--primary-color)] font-medium max-sm:w-64 max-md:w-96 max-md:text-base max-md:font-normal "

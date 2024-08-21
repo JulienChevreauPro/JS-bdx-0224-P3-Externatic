@@ -23,7 +23,7 @@ import CandidacyPage from "./pages/CandidacyPage";
 const offersUrl = "/api/offers";
 const technosUrl = "/api/technos";
 const companiesUrl = "/api/companies";
-const urls = [technosUrl, companiesUrl, offersUrl];
+const urls = [technosUrl, companiesUrl];
 const usersUrl = "/api/users";
 
 const router = createBrowserRouter([

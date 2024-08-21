@@ -19,11 +19,10 @@ function CreateOfferPage() {
       setAuthId(userData.auth.id);
     }
   }, [userData, authId]);
-  
+
   const navigate = useNavigate();
   const offersUrl = "/api/offers";
-  const [technos, companies, offers] = useLoaderData();
-
+  const [technos, companies] = useLoaderData();
   const [formData, setFormData] = useState({
     title: "",
     type: "",
@@ -74,7 +73,10 @@ function CreateOfferPage() {
 
   return (
     <main className="min-h-screen">
-      <ReturnButton source={`/dashboardConsultant/${authId}`} marginLeft="ml-10" />
+      <ReturnButton
+        source={`/dashboardConsultant/${authId}`}
+        marginLeft="ml-10"
+      />
       <h1 className="my-6 text-center text-[var(--secondary-color)]">
         Ajoutez une offre
       </h1>
@@ -88,7 +90,12 @@ function CreateOfferPage() {
           name="title"
           multiple={false}
           handleChange={handleChange}
-          options={offers.title}
+          options={[
+            { name: "Développeur FullStack", id: "FullStack" },
+            { name: "Développeur Front-End", id: "Front-End" },
+            { name: "Développeur Back-End", id: "Back-End" },
+            { name: "Développeur Web", id: "DevWeb" },
+          ]}
         />
         <FormDropDown
           id="type"
@@ -96,7 +103,12 @@ function CreateOfferPage() {
           name="type"
           multiple={false}
           handleChange={handleChange}
-          options={offers.type}
+          options={[
+            { name: "CDI", id: "CDI" },
+            { name: "CDD", id: "CDD" },
+            { name: "Alternance", id: "Alternance" },
+            { name: "FreeLance", id: "FreeLance" },
+          ]}
         />
         <FormDropDown
           id="techno"
@@ -147,7 +159,7 @@ function CreateOfferPage() {
           value={formData.advantages}
           handleChange={handleChange}
         />
-        <ButtonSubmit apply="big" name="Publier"/>
+        <ButtonSubmit apply="big" name="Publier" />
       </form>
     </main>
   );
