@@ -12,10 +12,10 @@ const {
   deleteUser,
 } = require("../../../controllers/userActions");
 
-const { hashPassword } = require("../../../services/hashPassword");
+const { hashPassword } = require("../../../middlewares/hashPassword");
 const { verifyAuthCurrent } = require("../../../middlewares/verifyAuthCurrent");
 
-router.get("/", verifyAuthCurrent, browse);
+router.get("/", browse);
 
 router.get("/:id", verifyAuthCurrent, read);
 

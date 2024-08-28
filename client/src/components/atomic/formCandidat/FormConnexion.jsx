@@ -17,6 +17,7 @@ export default function FormConnexion({
         label="E-mail"
         type="email"
         name="email"
+        autocomplete="on"
       />
       <FormInputCandidat
         handleChange={handleChange}
@@ -25,6 +26,7 @@ export default function FormConnexion({
         label="Mot de passe"
         type="password"
         name="password"
+        autocomplete="off"
       />
       <footer className="mt-10 mx-4 flex flex-col gap-10 items-center">
         <ChangeRegisterConnexion />

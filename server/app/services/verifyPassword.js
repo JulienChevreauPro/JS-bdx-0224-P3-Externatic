@@ -1,16 +1,16 @@
-const argon2 = require("argon2");
-const tables = require("../../database/tables");
+// const argon2 = require("argon2");
+// const tables = require("../../database/tables");
 
-const verifyPassword = async (email, password) => {
-  const user = await tables.user.readByEmailWithPassword(email);
+// const verifyPassword = async (email, password) => {
+//   const user = await tables.user.readByEmailWithPassword(email);
 
-  if (user == null) {
-    return { verified: false };
-  }
+//   if (user == null) {
+//     return { verified: false };
+//   }
 
-  const verified = await argon2.verify(user.hashed_password, password);
+//   const verified = await argon2.verify(user.hashed_password, password);
 
-  return { verified, user };
-};
+//   return { verified, user };
+// };
 
-module.exports = { verifyPassword };
+// module.exports = { verifyPassword };

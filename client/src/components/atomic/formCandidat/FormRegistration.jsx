@@ -23,6 +23,7 @@ export default function FormRegistration({
         label="Prénom"
         type="text"
         name="firstname"
+        autocomplete="on"
       />
       <FormInputCandidat
         handleChange={handleChange}
@@ -31,6 +32,7 @@ export default function FormRegistration({
         label="Nom"
         type="text"
         name="lastname"
+        autocomplete="on"
       />
       <FormInputCandidat
         handleChange={handleChange}
@@ -39,6 +41,7 @@ export default function FormRegistration({
         label="E-mail"
         type="email"
         name="email"
+        autocomplete="on"
       />
       <FormInputCandidat
         handleChange={handleChange}
@@ -47,6 +50,7 @@ export default function FormRegistration({
         label="Mot de passe"
         type="password"
         name="password"
+        autocomplete="off"
       />
       <footer className="mt-10 mx-4 flex flex-col gap-10 items-center">
         <UserAgreements />

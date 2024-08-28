@@ -53,6 +53,7 @@ function DashboardCandidate() {
                     label="Mail"
                     type="email"
                     name="email"
+                    autocomplete="on"
                   />
                   <FormInputCandidat
                     handleChange={handleChange}
@@ -61,6 +62,7 @@ function DashboardCandidate() {
                     label="Tel"
                     type="text"
                     name="phone"
+                    autocomplete="on"
                   />
                   <ButtonSubmit
                     apply="big"

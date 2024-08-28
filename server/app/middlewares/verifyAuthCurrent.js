@@ -12,10 +12,10 @@ const verifyAuthCurrent = (req, res, next) => {
           id: decodedToken.id,
         };
       } catch (err) {
-        // Invalid token, we can handle it or just ignore
+        return res.status(401).json({ error: "Token invalide" });
       }
     }
   }
-  next();
+  return next();
 };
 module.exports = { verifyAuthCurrent };
