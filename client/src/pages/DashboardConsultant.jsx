@@ -36,7 +36,7 @@ function DashboardConsultant() {
         Gestion Offres
       </Link>
       <Button
-        apply="medium self-center"
+        apply="big self-center"
         name="Déconnexion"
         handleChange={logout}
       />

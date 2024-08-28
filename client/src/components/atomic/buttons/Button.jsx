@@ -8,12 +8,14 @@ function Button({ name, img = null, apply, handleChange, buttonAnimate = true })
       type="button"
     >
       {name}
-      {img && <img src={img} alt="" className="w-4" />}
+      {img && <img src={img} alt={name} className="w-4" />}
     </button>
   );
 }
 Button.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,]).isRequired,
   // eslint-disable-next-line react/require-default-props
   img: PropTypes.string,
   apply: PropTypes.string.isRequired,

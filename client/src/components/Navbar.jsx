@@ -77,8 +77,7 @@ function Navbar({ handleChangeNav, isNavOpen, isNavVisible }) {
           md:min-h-20 md:min-w-full md:bg-[var(--secondary-background-color)] md:translate-x-0 md:flex`}
       >
         <Button
-          name="fermer le menu"
-          img={cross}
+          name={<img src={cross} alt="fermer le menu" />}
           buttonAnimate={false}
           apply="navCross"
           handleChange={handleChangeNav}
