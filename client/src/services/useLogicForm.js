@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+// import { toast } from "react-toastify";
 import { sendUser } from "./fetchApi";
 import { useModal } from "../contexts/ModalContext";
 
@@ -33,13 +34,21 @@ const useLogicForm = () => {
   const handleSubmitRegistration = async (e) => {
     e.preventDefault();
 
+    const { firstname, lastname, email, password } = formData;
+    if (!firstname || !lastname || !email || !password) {
+      // toast.error("Veuillez renseigner la totalité des champs");
+      return;
+    }
+
     try {
       const response = await sendUser(usersUrl, formData, "POST");
-      setIsClicked(true);
-      const data = await response.json();
-      return data;
+
+      if (response.ok) {
+        setIsClicked(true);
+        // toast.success("Enregistrement réussi !");
+      }
     } catch (err) {
-      return err;
+      // toast.error("Erreur lors de l'enregistrement !");
     }
   };
 
@@ -65,6 +74,7 @@ const useLogicForm = () => {
       return err;
     }
   };
+
   return {
     formData,
     handleChange,

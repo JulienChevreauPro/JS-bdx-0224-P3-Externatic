@@ -27,6 +27,7 @@ export function ModalProvider({ children }) {
       setIsClicked(false);
     }, 1);
   }, [isVisible, isOpen]);
+  
   window.scrollTo({
     top: 0,
     behavior: "smooth",
@@ -37,7 +38,6 @@ export function ModalProvider({ children }) {
   }, [isClicked]);
 
   const isModalOpen = isOpen ? "modalOpen" : "modalNotOpen";
-
   const isModalVisible = isVisible ? "block" : "hidden";
 
   const contextValue = useMemo(

@@ -8,7 +8,7 @@ import Reload from "../services/reload";
 export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
-  const [auth, setAuth] = useState({ role: null, id: 0 });
+  const [auth, setAuth] = useState({ role: null, id: null });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,17 +18,14 @@ export default function AuthProvider({ children }) {
       setAuth(userData);
     }
   }, []);
-
   const logout = () => {
-    setAuth({ role: null, id: 0 });
+    setAuth(null);
     localStorage.removeItem("token");
     navigate("/");
     Reload();
     ScrollToTop();
   };
-
   const contextValue = useMemo(() => ({ auth, setAuth, logout, Reload }), [auth]);
-
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );

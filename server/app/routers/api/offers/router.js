@@ -3,12 +3,14 @@ const { verifyAuthCurrent } = require("../../../middlewares/verifyAuthCurrent");
 
 const router = express.Router();
 
-const { browse, read, add } = require("../../../controllers/offerActions");
+const { browse, read, add, del } = require("../../../controllers/offerActions");
 
 router.get("/", browse);
 
 router.get("/:id", verifyAuthCurrent, read);
 
 router.post("/", verifyAuthCurrent, add);
+
+router.delete("/:id", verifyAuthCurrent, del);
 
 module.exports = router;

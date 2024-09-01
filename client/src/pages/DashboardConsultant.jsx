@@ -25,13 +25,13 @@ function DashboardConsultant() {
       </h1>
       <Link
         to={`/candidateManagement/${authId}`}
-        className="bg-[var(--primary-color)] self-center text-[var(--primary-background-color)] rounded-lg w-64 h-20 text-center content-center"
+        className="mx-auto w-80 h-20 z-10 bg-[var(--primary-color)] rounded-md relative font-semibold text-[var(--primary-background-color)] max-md:w-64 max-md:h-20 max-md:text-sm text-center content-center"
       >
         Gestion Candidats
       </Link>
       <Link
         to="/offersCreate"
-        className="bg-[var(--primary-color)] self-center text-[var(--primary-background-color)] rounded-lg w-64 h-20 text-center content-center"
+        className="mx-auto w-80 h-20 z-10 bg-[var(--primary-color)] rounded-md relative font-semibold text-[var(--primary-background-color)] max-md:w-64 max-md:h-20 max-md:text-sm text-center content-center"
       >
         Gestion Offres
       </Link>

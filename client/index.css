@@ -21,6 +21,20 @@
 
   --box-shadow: 0 0.164375rem 0.289375rem 0 #00000005,
     0 0.75rem 0.8125rem 0 #0000000a, 0 1.89875rem 2.18rem 0 #0000000d;
+
+  --toastify-color-light: #f9f9f9;
+  --toastify-color-success: #038e00;
+  --toastify-color-error: #851342;
+
+  --toastify-icon-color-success: var(--toastify-color-success);
+  --toastify-icon-color-error: var(--toastify-color-error);
+
+  --toastify-toast-width: 25rem;
+  --toastify-toast-height: 5rem;
+  --toastify-font-family: var(--primary-font);
+  --toastify-z-index: 50;
+
+  --toastify-text-color-light: #851342;
 }
 
 * {
@@ -92,7 +106,7 @@ p {
 }
 
 .big {
-  @apply w-80 h-20 z-30 bg-[var(--primary-color)] rounded-md relative font-semibold text-[var(--primary-background-color)] max-md:w-60 max-md:h-11 max-md:text-sm;
+  @apply w-80 h-20 z-10 bg-[var(--primary-color)] rounded-md relative font-semibold text-[var(--primary-background-color)] max-md:w-64 max-md:h-20 max-md:text-sm;
 }
 
 .bigDelete {

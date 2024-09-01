@@ -50,8 +50,8 @@ const add = async (req, res, next) => {
 
   try {
     const insertId = await tables.user.create(user);
-
-    res.status(201).json({ insertId });
+    const newUser = await tables.user.read(insertId);
+    res.status(201).json(newUser);
   } catch (err) {
     next(err);
   }

@@ -7,8 +7,8 @@ CREATE TABLE user (
   hashed_password VARCHAR(250) NOT NULL,
   role VARCHAR(80) NOT NULL DEFAULT 'candidat'
 );
-INSERT INTO user (firstname, lastname, email, phone, hashed_password, role)
-VALUES ('Alexandre', 'Moro', 'adrale@gmail.com', '123456789', '$argon2id$v=19$m=19456,t=2,p=1$tO+RzSVxG6uFPtmv7LXeKQ$hC2icKgRJLSNnY/913TVQ1xQRwJL4EnPrzGB04RGKSk', 'consultant');
+INSERT INTO user (id, firstname, lastname, email, phone, hashed_password, role)
+VALUES (1,'Alexandre', 'Moro', 'adrale@gmail.com', '123456789', '$argon2id$v=19$m=19456,t=2,p=1$tO+RzSVxG6uFPtmv7LXeKQ$hC2icKgRJLSNnY/913TVQ1xQRwJL4EnPrzGB04RGKSk', 'consultant');
 
 CREATE TABLE consultant (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,

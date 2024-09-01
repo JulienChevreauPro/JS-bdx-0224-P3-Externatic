@@ -15,11 +15,11 @@ class OfferRepository extends AbstractRepository {
         `SELECT id FROM consultant WHERE user_id = ?`,
         [offer.authId]
       );
-
       if (!consultant.length) {
-        throw new Error(`Consultant with user_id ${offer.authId} does not exist`);
+        throw new Error(
+          `Consultant with user_id ${offer.authId} does not exist`
+        );
       }
-
       const consultantId = consultant[0].id;
 
       const [offerResult] = await this.database.query(
@@ -37,13 +37,12 @@ class OfferRepository extends AbstractRepository {
       );
       const offerId = offerResult.insertId;
 
-      const technoPromises = offer.techno.map((tech) =>
+      const technoPromises = offer.techno.map(async (tech) =>
         this.database.query(
           `INSERT INTO techno_offer (offer_id, techno_id) VALUES (?, ?)`,
           [offerId, tech]
         )
       );
-
       await Promise.all(technoPromises);
 
       await this.database.query("COMMIT");
@@ -112,12 +111,12 @@ class OfferRepository extends AbstractRepository {
 
   async readAllWithFavorites(userId) {
     const [candidateRows] = await this.database.query(
-        `SELECT id FROM candidate WHERE user_id = ?`,
-        [userId]
+      `SELECT id FROM candidate WHERE user_id = ?`,
+      [userId]
     );
 
     if (candidateRows.length === 0) {
-        throw new Error(`Candidate for user_id ${userId} does not exist`);
+      throw new Error(`Candidate for user_id ${userId} does not exist`);
     }
 
     const candidateId = candidateRows[0].id;
@@ -146,6 +145,29 @@ class OfferRepository extends AbstractRepository {
       [candidateId]
     );
     return rows;
+  }
+
+  async delete(offerId) {
+    try {
+      await this.database.query("START TRANSACTION");
+
+      await this.database.query(
+        `DELETE FROM techno_offer WHERE offer_id = ?`,
+         [offerId]
+      );
+
+      const [result] = await this.database.query(
+        `DELETE FROM ${this.table} WHERE id = ?`,
+        [offerId]
+      );
+
+      await this.database.query("COMMIT");
+
+      return result.affectedRows;
+    } catch (err) {
+      await this.database.query("ROLLBACK");
+      throw err;
+    }
   }
 }
 

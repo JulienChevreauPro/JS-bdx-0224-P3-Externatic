@@ -1,15 +1,19 @@
-import { Link, useLoaderData } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import Tag from "../components/atomic/tag/Tag";
 import PreviousPage from "../components/atomic/buttons/PreviousPage";
 import ScrollToTop from "../services/scrollToTop";
+import { deleteOffer } from "../services/deleteOffer";
 
 import { AuthContext } from "../contexts/AuthContext";
 
 function OfferDetails() {
   const offerData = useLoaderData();
+  const offersUrl = "api/offers";
   const userData = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [authId, setAuthId] = useState(null);
 
@@ -20,6 +24,24 @@ function OfferDetails() {
   }, [userData, authId]);
 
   ScrollToTop();
+
+  const handleDeleteOffer = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await deleteOffer(offersUrl, offerData, "DELETE");
+
+      if (response.ok) {
+        toast.success("Offre supprimée avec succès !");
+        navigate(`/dashboardConsultant/${authId}`);
+      } else {
+        toast.error("Erreur lors de la suppression de l'offre !!");
+      }
+    } catch (err) {
+      toast.error("Erreur lors de la gestion de la suppression");
+    }
+  };
+
   return (
     <main>
       <article>
@@ -89,12 +111,23 @@ function OfferDetails() {
         </h2>
         <p className="md:mx-10 mx-4 mb-20">{offerData.salary} Euro/an.</p>
         <footer className="mb-20 flex flex-col items-center">
-          <Link
-            to={`/candidacy/${offerData.id}`}
-            className="big text-center content-center"
-          >
-            POSTULER
-          </Link>
+          {userData && userData.auth.role === "candidat" ? (
+            <Link
+              to={`/candidacy/${offerData.id}`}
+              className="big text-center content-center"
+            >
+              POSTULER
+            </Link>
+          ) : (
+            <button
+              type="submit"
+              onClick={handleDeleteOffer}
+              className="big text-center content-center"
+            >
+              SUPPRIMER L'OFFRE
+            </button>
+          )}
+          ;
         </footer>
       </article>
     </main>

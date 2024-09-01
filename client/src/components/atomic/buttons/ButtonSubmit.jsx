@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import PropTypes from "prop-types";
 
 function ButtonSubmit({ apply, name, onClick = () => {} }) {
@@ -16,6 +15,7 @@ function ButtonSubmit({ apply, name, onClick = () => {} }) {
 ButtonSubmit.propTypes = {
   apply: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
   onClick: PropTypes.func,
 };
 

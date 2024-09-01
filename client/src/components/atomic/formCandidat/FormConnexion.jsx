@@ -1,15 +1,23 @@
+import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import FormInputCandidat from "../inputCandidat/formCandidat/FormInputCandidat";
 import ButtonSubmit from "../buttons/ButtonSubmit";
 import ChangeRegisterConnexion from "../modalElements/ChangeRegisterConnexion";
+import validationRules from "../../../services/validationRules";
 
 export default function FormConnexion({
   handleChange,
   formData,
   handleSubmitLogin,
 }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   return (
-    <form id="connexion" method="POST" className="flex flex-col items-center">
+    <form id="connexion" method="POST" className="flex flex-col items-center" onSubmit={handleSubmit}>
       <FormInputCandidat
         handleChange={handleChange}
         value={formData.email}
@@ -17,8 +25,10 @@ export default function FormConnexion({
         label="E-mail"
         type="email"
         name="email"
-        autocomplete="on"
+        autoComplete="on"
+        register={register("email", validationRules.email)}
       />
+      {errors.email && <p>{errors.email.message}</p>}
       <FormInputCandidat
         handleChange={handleChange}
         value={formData.password}
@@ -26,8 +36,10 @@ export default function FormConnexion({
         label="Mot de passe"
         type="password"
         name="password"
-        autocomplete="off"
+        autoComplete="off"
+        register={register("password", validationRules.password)}
       />
+      {errors.password && <p>{errors.password.message}</p>}
       <footer className="mt-10 mx-4 flex flex-col gap-10 items-center">
         <ChangeRegisterConnexion />
         <ButtonSubmit
