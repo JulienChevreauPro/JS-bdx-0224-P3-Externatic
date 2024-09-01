@@ -24,6 +24,7 @@ function OfferPage() {
 
   const offers = useLoaderData();
   const { formData, handleChange } = useLogicForm();
+  
   return (
     <main className="m-4 mt-12 flex flex-col min-h-screen">
       <section

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
-const useDashboardCandidateService = (data, logout, navigate, Reload) => {
+const useDashboardCandidateService = (data, logout, navigate) => {
   const [favorites, setFavorites] = useState([]);
   const [formData, setFormData] = useState({
     email: data.email || "",
@@ -54,10 +55,14 @@ const useDashboardCandidateService = (data, logout, navigate, Reload) => {
         }
       );
       if (!response.ok) {
+        toast.error("Nous n'avons pas pu mettre à jour votre profil...");
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       await response.json();
+      toast.success("Profil modifié avec succès !!");
+      setIsEditing(false);
     } catch (err) {
+      toast.error("Erreur lors de la gestion du compte");
       throw new Error("Error updating user:", err);
     }
   };
@@ -74,12 +79,14 @@ const useDashboardCandidateService = (data, logout, navigate, Reload) => {
         }
       );
       if (!response.ok) {
+        toast.error("Votre compte n'a pas pu être supprimé...");
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      toast.success("Compte supprimé !!");
       logout();
       navigate("/");
-      Reload();
     } catch (err) {
+      toast.error("Erreur lors de la suppression du compte");
       throw new Error("Error deleting account:", err);
     }
   };

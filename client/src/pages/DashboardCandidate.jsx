@@ -43,7 +43,7 @@ function DashboardCandidate() {
                 {data.firstname} {data.lastname}
               </h1>
             </li>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+            <form className="flex flex-col gap-2">
               {isEditing ? (
                 <>
                   <FormInputCandidat
@@ -67,7 +67,7 @@ function DashboardCandidate() {
                   <ButtonSubmit
                     apply="big"
                     name="Mettre à jour"
-                    onClick={() => setIsEditing(false)}
+                    onClick={handleSubmit}
                   />
                 </>
               ) : (

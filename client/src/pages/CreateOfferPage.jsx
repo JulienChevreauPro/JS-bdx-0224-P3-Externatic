@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, useLoaderData } from "react-router-dom";
-// import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 import createOffer from "../services/createOffer";
 
@@ -62,21 +62,21 @@ function CreateOfferPage() {
 
     try {
       const response = await createOffer(offersUrl, offerData, "POST");
-      const data = await response.json();
+
       if (response.ok) {
-        // toast.success("Offre créée avec succès!!");
+        toast.success("Offre créée avec succès !");
         navigate(`/dashboardConsultant/${authId}`);
+      } else {
+        toast.error("Erreur lors de la création de l'offre !!");
       }
-      return data;
     } catch (err) {
-      // toast.error("Une erreur est survenue pendant la création de l'offre...");
-      return err;
+      toast.error("Erreur lors de la gestion de la création");
     }
   };
 
+
   return (
     <main className="min-h-screen">
-      {/* <ToastContainer /> */}
       <ReturnButton
         source={`/dashboardConsultant/${authId}`}
         marginLeft="ml-10"

@@ -21,7 +21,7 @@ function DashboardConsultant() {
     <main className="flex flex-col gap-20 min-h-screen">
       <PreviousPage marginLeft="ml-10" source="/" />
       <h1 className="text-2xl self-center text-[var(--primary-color)]">
-        Bonjour, {consultantData.firstname} {consultantData.lastname}
+        Bonjour {consultantData.firstname} {consultantData.lastname}
       </h1>
       <Link
         to={`/candidateManagement/${authId}`}

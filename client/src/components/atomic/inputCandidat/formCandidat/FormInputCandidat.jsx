@@ -8,7 +8,7 @@ export default function FormInputCandidat({
   name,
   value,
   placeholder = "",
-  autoComplete,
+  autoComplete = "off",
 }) {
   return (
     <label
@@ -55,5 +55,6 @@ FormInputCandidat.propTypes = {
   ]).isRequired,
   // eslint-disable-next-line react/require-default-props
   placeholder: PropTypes.string,
-  autoComplete: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  autoComplete: PropTypes.string,
 };
