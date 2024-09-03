@@ -5,8 +5,8 @@ const router = express.Router();
 const {
   add,
   read,
-  readByCandidates,
-  readCandidates,
+  readByConsultant,
+  readCandidate,
   browse,
   updateCandidate,
   deleteUser,
@@ -19,9 +19,9 @@ router.get("/", browse);
 
 router.get("/:id", verifyAuthCurrent, read);
 
-router.get("/consultants/:id", verifyAuthCurrent, readByCandidates);
+router.get("/consultants/:id", verifyAuthCurrent, readByConsultant);
 
-router.get("/candidates/:id", verifyAuthCurrent, readCandidates);
+router.get("/candidates/:id", verifyAuthCurrent, readCandidate);
 
 router.post("/", hashPassword, add);
 

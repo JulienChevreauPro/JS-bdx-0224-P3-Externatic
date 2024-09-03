@@ -1,7 +1,8 @@
 const express = require("express");
-const { verifyAuthCurrent } = require("../../../middlewares/verifyAuthCurrent");
 
 const router = express.Router();
+
+const { verifyAuthCurrent } = require("../../../middlewares/verifyAuthCurrent");
 
 const { browse, read, add, del } = require("../../../controllers/offerActions");
 

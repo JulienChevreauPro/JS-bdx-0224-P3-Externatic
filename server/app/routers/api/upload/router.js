@@ -11,11 +11,7 @@ const upload = multer({ dest: "./public/assets/images" });
 /* ************************************************************************* */
 const UploadFile = require("../../../controllers/uploadActions");
 
-router.post(
-  "/",
-  upload.single("myfile"),
-  UploadFile.upload
-);
+router.post("/", upload.single("myfile"), UploadFile.upload);
 /* ************************************************************************* */
 
 module.exports = router;
