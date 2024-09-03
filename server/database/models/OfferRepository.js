@@ -2,8 +2,6 @@ const AbstractRepository = require("./AbstractRepository");
 
 class OfferRepository extends AbstractRepository {
   constructor() {
-    // Call the constructor of the parent class (AbstractRepository)
-    // and pass the table name "offer" as configuration
     super({ table: "offer" });
   }
 
@@ -15,6 +13,7 @@ class OfferRepository extends AbstractRepository {
         `SELECT id FROM consultant WHERE user_id = ?`,
         [offer.authId]
       );
+
       if (!consultant.length) {
         throw new Error(
           `Consultant with user_id ${offer.authId} does not exist`
@@ -118,7 +117,6 @@ class OfferRepository extends AbstractRepository {
     if (candidateRows.length === 0) {
       throw new Error(`Candidate for user_id ${userId} does not exist`);
     }
-
     const candidateId = candidateRows[0].id;
 
     const [rows] = await this.database.query(
@@ -151,10 +149,9 @@ class OfferRepository extends AbstractRepository {
     try {
       await this.database.query("START TRANSACTION");
 
-      await this.database.query(
-        `DELETE FROM techno_offer WHERE offer_id = ?`,
-         [offerId]
-      );
+      await this.database.query(`DELETE FROM techno_offer WHERE offer_id = ?`, [
+        offerId,
+      ]);
 
       const [result] = await this.database.query(
         `DELETE FROM ${this.table} WHERE id = ?`,

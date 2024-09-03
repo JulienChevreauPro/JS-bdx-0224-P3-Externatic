@@ -7,13 +7,15 @@ class FavoriteRepository extends AbstractRepository {
 
   async create(favorite) {
     const [candidateRows] = await this.database.query(
-        `SELECT c.id FROM candidate c
+      `SELECT c.id FROM candidate c
          WHERE c.user_id = ?`,
-        [favorite.candidateId]
+      [favorite.candidateId]
     );
 
     if (candidateRows.length === 0) {
-        throw new Error(`Candidate for user_id ${favorite.userId} does not exist`);
+      throw new Error(
+        `Candidate for user_id ${favorite.userId} does not exist`
+      );
     }
 
     const candidateId = candidateRows[0].id;
@@ -31,21 +33,21 @@ class FavoriteRepository extends AbstractRepository {
     );
     return result.insertId;
   }
-  
+
   async read(userId) {
     const [candidateRows] = await this.database.query(
-        `SELECT id FROM candidate WHERE user_id = ?`,
-        [userId]
+      `SELECT id FROM candidate WHERE user_id = ?`,
+      [userId]
     );
 
     if (candidateRows.length === 0) {
-        throw new Error(`Candidate for user_id ${userId} does not exist`);
+      throw new Error(`Candidate for user_id ${userId} does not exist`);
     }
 
     const candidateId = candidateRows[0].id;
 
     const [rows] = await this.database.query(
-        `SELECT ${this.table}.*, offer.*,
+      `SELECT ${this.table}.*, offer.*,
         (
           SELECT JSON_ARRAYAGG(JSON_OBJECT('name', techno.name))
           FROM techno_offer
@@ -55,21 +57,23 @@ class FavoriteRepository extends AbstractRepository {
         FROM ${this.table}
         INNER JOIN offer ON ${this.table}.offer_id = offer.id
         WHERE candidate_id = ?`,
-        [candidateId]
+      [candidateId]
     );
 
     return rows;
-}
-    
-    async delete(favorite) {
-      const [candidateRows] = await this.database.query(
-        `SELECT c.id FROM candidate c
+  }
+
+  async delete(favorite) {
+    const [candidateRows] = await this.database.query(
+      `SELECT c.id FROM candidate c
          WHERE c.user_id = ?`,
-        [favorite.candidateId]
+      [favorite.candidateId]
     );
 
     if (candidateRows.length === 0) {
-        throw new Error(`Candidate for user_id ${favorite.userId} does not exist`);
+      throw new Error(
+        `Candidate for user_id ${favorite.userId} does not exist`
+      );
     }
 
     const candidateId = candidateRows[0].id;
@@ -80,13 +84,13 @@ class FavoriteRepository extends AbstractRepository {
     );
 
     const offerId = offerRows[0].id;
-      
-      const [result] = await this.database.query(
-        `DELETE FROM ${this.table} WHERE candidate_id = ? AND offer_id = ?`,
-        [candidateId, offerId]
-      );
-      return result.affectedRows;
-    }
+
+    const [result] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE candidate_id = ? AND offer_id = ?`,
+      [candidateId, offerId]
+    );
+    return result.affectedRows;
   }
-    
+}
+
 module.exports = FavoriteRepository;
