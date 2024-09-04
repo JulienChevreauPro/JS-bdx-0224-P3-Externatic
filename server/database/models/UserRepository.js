@@ -18,11 +18,11 @@ class UserRepository extends AbstractRepository {
       [user.firstname, user.lastname, user.email, user.hashedPassword]
     );
 
-    const [candidat] = await this.database.query(
+    await this.database.query(
       `INSERT INTO candidate (user_id) VALUES(?)`,
       [result.insertId]
     );
-    return candidat.insertId;
+    return result.insertId;
   }
 
   async read(id) {

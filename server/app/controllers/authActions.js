@@ -1,10 +1,15 @@
 const login = async (req, res, next) => {
   const { token } = req;
 
+  if (!token) {
+    return res.status(400).json({ error: "Token not provided" });
+  }
+
   try {
-    res.json({ token });
+    
+    return res.json({ token });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 };
 

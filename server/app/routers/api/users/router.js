@@ -1,6 +1,15 @@
 const express = require("express");
 
-const router = express.Router();
+const {
+  readUserValidation,
+  readCandidateValidation,
+  readByConsultantValidation,
+  addUserValidation,
+  updateCandidateValidation,
+  deleteUserValidation,
+} = require("../../../middlewares/userValidator");
+const { hashPassword } = require("../../../middlewares/hashPassword");
+const { verifyAuthCurrent } = require("../../../middlewares/verifyAuthCurrent");
 
 const {
   add,
@@ -12,21 +21,35 @@ const {
   deleteUser,
 } = require("../../../controllers/userActions");
 
-const { hashPassword } = require("../../../middlewares/hashPassword");
-const { verifyAuthCurrent } = require("../../../middlewares/verifyAuthCurrent");
+const router = express.Router();
 
 router.get("/", browse);
 
-router.get("/:id", verifyAuthCurrent, read);
+router.get("/:id", verifyAuthCurrent, readUserValidation, read);
 
-router.get("/consultants/:id", verifyAuthCurrent, readByConsultant);
+router.get(
+  "/consultants/:id",
+  verifyAuthCurrent,
+  readByConsultantValidation,
+  readByConsultant
+);
 
-router.get("/candidates/:id", verifyAuthCurrent, readCandidate);
+router.get(
+  "/candidates/:id",
+  verifyAuthCurrent,
+  readCandidateValidation,
+  readCandidate
+);
 
-router.post("/", hashPassword, add);
+router.post("/", addUserValidation, hashPassword, add);
 
-router.put("/:id", verifyAuthCurrent, updateCandidate);
+router.put(
+  "/:id",
+  verifyAuthCurrent,
+  updateCandidateValidation,
+  updateCandidate
+);
 
-router.delete("/:id", verifyAuthCurrent, deleteUser);
+router.delete("/:id", verifyAuthCurrent, deleteUserValidation, deleteUser);
 
 module.exports = router;
