@@ -20,10 +20,12 @@ export async function sendUser(url, user, http) {
       method: http,
       headers: {
         "content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,    
       },
       body: JSON.stringify(user),
     });
-    return response.json();
+     return response;
+  
   } catch (err) {
     return err;
   }
@@ -35,6 +37,7 @@ export async function sendCandidacy(url, http) {
       method: http,
       headers: {
         "content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
       },
     });
     return response.json();

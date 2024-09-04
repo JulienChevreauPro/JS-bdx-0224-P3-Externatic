@@ -4,7 +4,7 @@ export default function FormInputCandidat({
   id,
   label,
   type,
-  handleChange,
+  handleChange = () => {},
   name,
   value,
   placeholder = "",
@@ -12,7 +12,7 @@ export default function FormInputCandidat({
 }) {
   return (
     <label
-      className="w-[34rem] flex flex-col mb-4 gap-4 text-[var(--primary-color)] font-medium max-sm:w-64 max-md:w-96 max-md:text-base max-md:font-normal "
+      className="w-[34rem] flex flex-col mb-4 gap-4 text-[var(--primary-color)] font-medium max-sm:w-64 max-md:w-96 max-md:text-base max-md:font-normal"
       htmlFor={id}
     >
       {label}
@@ -24,7 +24,7 @@ export default function FormInputCandidat({
           onChange={handleChange}
           value={value}
           placeholder={placeholder}
-          autoComplete="off"
+          autoComplete={autoComplete}
         />
       ) : (
         <input
@@ -35,7 +35,7 @@ export default function FormInputCandidat({
           onChange={handleChange}
           value={value}
           placeholder={placeholder}
-          autoComplete= {autoComplete}
+          autoComplete={autoComplete}
         />
       )}
     </label>
@@ -45,8 +45,9 @@ export default function FormInputCandidat({
 FormInputCandidat.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  type: PropTypes.oneOf(["text", "email", "password", "textarea"]).isRequired,
+  // eslint-disable-next-line react/require-default-props
+  handleChange: PropTypes.func,
   name: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -58,3 +59,9 @@ FormInputCandidat.propTypes = {
   // eslint-disable-next-line react/require-default-props
   autoComplete: PropTypes.string,
 };
+
+// FormInputCandidat.defaultProps = {
+//   handleChange :() => {},
+//   placeholder : "",
+//   autoComplete :"off",
+// };

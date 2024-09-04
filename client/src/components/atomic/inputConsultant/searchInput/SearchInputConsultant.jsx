@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import IconSearch from "../../../../assets/images/ICONSEARCH.svg";
 
 export default function SearchInputConsultant({
-  id,
+  id =0,
   placeholder,
   value,
   onChange,
@@ -31,7 +31,8 @@ export default function SearchInputConsultant({
 }
 
 SearchInputConsultant.propTypes = {
-  id: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  id: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

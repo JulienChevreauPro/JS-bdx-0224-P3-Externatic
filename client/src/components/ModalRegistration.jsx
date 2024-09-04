@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
-// import { ToastContainer } from "react-toastify";
-// import 'react-toastify/dist/ReactToastify.css';
+
 import { useModal } from "../contexts/ModalContext";
 
 import NavAccess from "../services/NavAccess";
@@ -73,7 +72,6 @@ function ModalRegistration({
         handleSubmitLogin={handleSubmitLogin}
         handleSubmitRegistration={handleSubmitRegistration}
       />
-      {/* <ToastContainer/> */}
     </dialog>
   );
 }

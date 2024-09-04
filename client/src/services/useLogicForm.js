@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { sendUser } from "./fetchApi";
+import Reload from "./reload";
 import { useModal } from "../contexts/ModalContext";
 
 const useLogicForm = () => {
@@ -16,8 +16,6 @@ const useLogicForm = () => {
     technos: "",
   });
 
-  const navigate = useNavigate();
-
   const usersUrl = "/api/users";
   const loginUrl = "/api/login";
 
@@ -31,47 +29,64 @@ const useLogicForm = () => {
     }));
   };
 
-  const handleSubmitRegistration = async (e) => {
-    e.preventDefault();
-
+  const handleSubmitRegistration = async () => {
     const { firstname, lastname, email, password } = formData;
     if (!firstname || !lastname || !email || !password) {
-      // toast.error("Veuillez renseigner la totalité des champs");
+      toast.error("Veuillez renseigner la totalité des champs");
       return;
     }
 
     try {
       const response = await sendUser(usersUrl, formData, "POST");
 
-      if (response.ok) {
+      if (response && response.ok) {
         setIsClicked(true);
-        // toast.success("Enregistrement réussi !");
+        toast.success("Enregistrement réussi !");
+      } else if (response) {
+        const errorData = await response.json();
+        if (errorData.errors) {
+          errorData.errors.forEach((err) => {
+            toast.error(err.msg);
+          });
+        } else {
+          toast.error("Erreur lors de l'enregistrement !");
+        }
+      } else {
+        toast.error("Erreur lors de l'enregistrement !");
       }
     } catch (err) {
-      // toast.error("Erreur lors de l'enregistrement !");
+      toast.error("Erreur lors de l'enregistrement !");
     }
   };
 
   const handleSubmitLogin = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
+
+    const loginData = {
+      email: formData.email,
+      password: formData.password,
+    };
+
+    if (!loginData.email || !loginData.password) {
+      toast.error("Veuillez renseigner la totalité des champs");
+      return;
+    }
 
     try {
-      const loginData = {
-        email: formData.email,
-        password: formData.password,
-      };
       const response = await sendUser(loginUrl, loginData, "POST");
+
       if (response) {
-        const userData = response.token;
-        handleChangeModal();
-        navigate("/");
-        window.location.reload();
-        localStorage.setItem("token", userData);
-        return userData;
+        const userData = await response.json();
+        localStorage.setItem("token", userData.token);
+        toast.success("Connexion réussie!");
+          handleChangeModal();
+          Reload();
+      } else {
+        toast.error("Erreur lors de la connexion !");
       }
-      return response;
     } catch (err) {
-      return err;
+      toast.error("Erreur lors de la connexion !");
+      console.error("Login Error:", err);
     }
   };
 

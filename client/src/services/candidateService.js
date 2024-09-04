@@ -6,7 +6,7 @@ const useDashboardCandidateService = (data, logout, navigate) => {
   const [formData, setFormData] = useState({
     email: data.email || "",
     phone: data.phone || "",
-    name: data.name || "",
+    id: data.id || 0,
   });
   const [isEditing, setIsEditing] = useState(false);
 
@@ -50,20 +50,23 @@ const useDashboardCandidateService = (data, logout, navigate) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(formData),
         }
       );
+
       if (!response.ok) {
         toast.error("Nous n'avons pas pu mettre à jour votre profil...");
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       await response.json();
+
       toast.success("Profil modifié avec succès !!");
       setIsEditing(false);
     } catch (err) {
       toast.error("Erreur lors de la gestion du compte");
-      throw new Error("Error updating user:", err);
+      console.error(`Error updating user: ${err}`);
     }
   };
 
@@ -87,7 +90,7 @@ const useDashboardCandidateService = (data, logout, navigate) => {
       navigate("/");
     } catch (err) {
       toast.error("Erreur lors de la suppression du compte");
-      throw new Error("Error deleting account:", err);
+      console.error("Error deleting account:", err);
     }
   };
 

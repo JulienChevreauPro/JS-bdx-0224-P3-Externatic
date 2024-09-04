@@ -7,26 +7,36 @@ import { AuthContext } from "../contexts/AuthContext";
 function AccessOfferDetailsCondition({ handleClick, offerId }) {
   const { auth } = useContext(AuthContext);
 
+  if (!auth || !auth.role) {
+    return (
+      <Button
+        type="button"
+        apply="medium buttonAnimate text-center content-center"
+        handleChange={handleClick}
+        buttonAnimate={false}
+        name="INSCRIVEZ VOUS !"
+      />
+    );
+  }
+
+  if (auth.role === "candidat" || auth.role === "consultant") {
+    return (
+      <Link
+        to={`/offers/${offerId}`}
+        className="medium buttonAnimate text-center content-center"
+      >
+        VOIR L'OFFRE
+      </Link>
+    );
+  }
   return (
-    <>
-      {(auth.role === "candidat" || auth.role === "consultant") && (
-        <Link
-          to={`/offers/${offerId}`}
-          className="medium buttonAnimate text-center content-center"
-        >
-          VOIR L'OFFRE
-        </Link>
-      )}
-      {!["consultant", "candidat"].includes(auth.role) && (
-        <Button
-          type="button"
-          apply="medium buttonAnimate text-center content-center"
-          handleChange={handleClick}
-          buttonAnimate={false}
-          name="INSCRIVEZ VOUS !"
-        />
-      )}
-    </>
+    <Button
+      type="button"
+      apply="medium buttonAnimate text-center content-center"
+      handleChange={handleClick}
+      buttonAnimate={false}
+      name="INSCRIVEZ VOUS !"
+    />
   );
 }
 

@@ -1,44 +1,39 @@
 import { useState } from "react";
-// import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 
 import FormInputCandidat from "../inputCandidat/formCandidat/FormInputCandidat";
 import UserAgreements from "../modalElements/UserAgreements";
 import ChangeRegisterConnexion from "../modalElements/ChangeRegisterConnexion";
 import ButtonSubmit from "../buttons/ButtonSubmit";
-import validationRules from "../../../services/validationRules";
 
 export default function FormRegistration({
   handleChange,
   formData,
   handleSubmitRegistration,
-}) {
-  const [isChecked, setIsChecked] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+}) {  
 
-  const handleCheckChange = () => {
-    setIsChecked(!isChecked);
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckChange = (event) => {
+    setIsChecked(event.target.checked);
   };
 
-  // const onSubmitForm = (data) => {
-  //   if (!isChecked) {
-  //     toast.error("Vous devez accepter les CGU pour continuer.");
-  //     return;
-  //   }
-  //   handleSubmitRegistration(data);
-  // };
+  const onSubmitForm = (e) => {
+    e.preventDefault();
+    
+    if (!isChecked) {
+      toast.error("Vous devez accepter les CGU pour continuer.");
+      return;
+    }
+    handleSubmitRegistration();
+  };
 
   return (
     <form
       id="registration"
       method="POST"
       className="flex flex-col items-center"
-      onSubmit={handleSubmit}
+      onSubmit={onSubmitForm}
     >
       <FormInputCandidat
         handleChange={handleChange}
@@ -48,9 +43,8 @@ export default function FormRegistration({
         type="text"
         name="firstname"
         autoComplete="on"
-        register={register("firstname", validationRules.firstName)}
       />
-      {errors.firstname && <p>{errors.firstname.message}</p>}
+
       <FormInputCandidat
         handleChange={handleChange}
         value={formData.lastname}
@@ -59,9 +53,8 @@ export default function FormRegistration({
         type="text"
         name="lastname"
         autoComplete="on"
-        register={register("lastname", validationRules.lastName)}
       />
-      {errors.lastname && <p>{errors.lastname.message}</p>}
+
       <FormInputCandidat
         handleChange={handleChange}
         value={formData.email}
@@ -70,9 +63,8 @@ export default function FormRegistration({
         type="email"
         name="email"
         autoComplete="on"
-        register={register("email", validationRules.email)}
       />
-      {errors.email && <p>{errors.email.message}</p>}
+
       <FormInputCandidat
         handleChange={handleChange}
         value={formData.password}
@@ -81,9 +73,8 @@ export default function FormRegistration({
         type="password"
         name="password"
         autoComplete="off"
-        register={register("password", validationRules.password)}
       />
-      {errors.password && <p>{errors.password.message}</p>}
+
       <footer className="mt-10 mx-4 flex flex-col gap-10 items-center">
         <UserAgreements
           isChecked={isChecked}
@@ -91,7 +82,7 @@ export default function FormRegistration({
         />
         <ChangeRegisterConnexion />
         <ButtonSubmit
-          onClick={handleSubmitRegistration}
+          onClick={onSubmitForm}
           apply="big"
           name="Valider mon inscription"
         />
