@@ -46,8 +46,7 @@ const readByConsultant = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
-  const user = req.body;  
-
+  const user = req.body;
   try {
     const insertId = await tables.user.create(user);  
     const newUser = await tables.user.read(insertId);
