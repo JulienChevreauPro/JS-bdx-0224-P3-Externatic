@@ -52,11 +52,11 @@ CardConsultant.propTypes = {
     lastname: PropTypes.string.isRequired,
     technos: PropTypes.arrayOf(
       PropTypes.shape({
-        name: PropTypes.string.isRequired,
+        name: PropTypes.string,
       })
-    ).isRequired,
-    phone: PropTypes.string.isRequired,
+    ),
+    phone: PropTypes.string,
     email: PropTypes.string.isRequired,
-    cv: PropTypes.string.isRequired,
+    cv: PropTypes.string,
   }).isRequired,
 };

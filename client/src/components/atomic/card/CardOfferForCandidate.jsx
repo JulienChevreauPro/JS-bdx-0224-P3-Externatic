@@ -77,7 +77,7 @@ export default function CardOfferForCandidate({ offer }) {
         )}
       </header>
       <ul className="flex gap-1 relative mb-4">
-        {offer.technos.map((techno) => (
+        {offer.technos.slice(0, 3).map((techno) => (
           <li key={techno.name}>
             <Tag text={techno.name} apply="tag" />
           </li>
@@ -113,7 +113,7 @@ CardOfferForCandidate.propTypes = {
     details: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
     salary: PropTypes.number.isRequired,
-    company_name: PropTypes.string.isRequired,
+    company_name: PropTypes.string,
     technos: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,

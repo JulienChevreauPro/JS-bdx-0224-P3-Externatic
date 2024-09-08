@@ -6,7 +6,7 @@ import CardConsultant from "../components/atomic/card/CardConsultant";
 import PreviousPage from "../components/atomic/buttons/PreviousPage";
 
 function CandidateManagement() {
-  const candidatesData = useLoaderData();
+  const candidatesData = useLoaderData();  
 
   const userData = useContext(AuthContext);
 
