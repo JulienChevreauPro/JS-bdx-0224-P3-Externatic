@@ -127,7 +127,6 @@ function OfferDetails() {
               SUPPRIMER L'OFFRE
             </button>
           )}
-          ;
         </footer>
       </article>
     </main>
