@@ -24,8 +24,8 @@ export async function sendUser(url, user, http) {
       },
       body: JSON.stringify(user),
     });
-     return response;
-  
+    return response;
+    
   } catch (err) {
     return err;
   }

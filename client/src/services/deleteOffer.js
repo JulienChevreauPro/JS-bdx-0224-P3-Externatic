@@ -8,8 +8,8 @@ export async function deleteOffer(url, offer, http) {
       {
         method: http,
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
       }
     );

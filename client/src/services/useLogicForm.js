@@ -42,17 +42,23 @@ const useLogicForm = () => {
       if (response && response.ok) {
         setIsClicked(true);
         toast.success("Enregistrement réussi !");
-      } else if (response) {
+      } else {
         const errorData = await response.json();
+
         if (errorData.errors) {
           errorData.errors.forEach((err) => {
             toast.error(err.msg);
           });
+        } else if (
+          errorData.message &&
+          errorData.message.includes("Duplicate entry")
+        ) {
+          toast.error(
+            "L'email est déjà utilisé. Veuillez en choisir un autre."
+          );
         } else {
           toast.error("Erreur lors de l'enregistrement !");
         }
-      } else {
-        toast.error("Erreur lors de l'enregistrement !");
       }
     } catch (err) {
       toast.error("Erreur lors de l'enregistrement !");
@@ -77,10 +83,11 @@ const useLogicForm = () => {
 
       if (response) {
         const userData = await response.json();
+
         localStorage.setItem("token", userData.token);
         toast.success("Connexion réussie!");
-          handleChangeModal();
-          Reload();
+        handleChangeModal();
+        Reload();
       } else {
         toast.error("Erreur lors de la connexion !");
       }

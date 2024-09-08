@@ -58,7 +58,7 @@ const add = async (req, res, next) => {
   }
 };
 
-const updateCandidate = async (req, res) => {
+const editCandidate = async (req, res) => {
   const { email, phone } = req.body;
   const candidateId = req.params.id;
 
@@ -87,6 +87,6 @@ module.exports = {
   readByConsultant,
   readCandidate,
   browse,
-  updateCandidate,
+  editCandidate,
   deleteUser,
 };

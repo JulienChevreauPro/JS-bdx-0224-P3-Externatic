@@ -47,7 +47,7 @@ const addUserValidation = [
   }
 ];
 
-const updateCandidateValidation = [
+const editCandidateValidation = [
   body("email").optional().isEmail().withMessage("Format d'email invalide").escape(),
   body("phone").optional().isString().isLength({ min: 10 }).withMessage("Le numéro de téléphone doit être composé au moins de 10 chiffres").escape(),
   (req, res, next) => {
@@ -76,6 +76,6 @@ module.exports = {
   readCandidateValidation,
   readByConsultantValidation,
   addUserValidation,
-  updateCandidateValidation,
+  editCandidateValidation,
   deleteUserValidation
 };

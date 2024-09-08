@@ -12,6 +12,7 @@ const useDashboardCandidateService = (data, logout, navigate) => {
 
   useEffect(() => {
     const fetchFavorites = async () => {
+      setFavorites([]);
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/favorites`,
@@ -28,6 +29,7 @@ const useDashboardCandidateService = (data, logout, navigate) => {
       } catch (err) {
         throw new Error("Error fetching favorites", err);
       }
+      
     };
 
     fetchFavorites();

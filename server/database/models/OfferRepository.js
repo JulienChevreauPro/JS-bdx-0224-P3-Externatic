@@ -7,8 +7,6 @@ class OfferRepository extends AbstractRepository {
 
   async create(offer) {
     try {
-      await this.database.query("START TRANSACTION");
-
       const [consultant] = await this.database.query(
         `SELECT id FROM consultant WHERE user_id = ?`,
         [offer.authId]
@@ -20,6 +18,8 @@ class OfferRepository extends AbstractRepository {
         );
       }
       const consultantId = consultant[0].id;
+
+      await this.database.query("START TRANSACTION");
 
       const [offerResult] = await this.database.query(
         `INSERT INTO ${this.table} (title, city, salary, details, advantages, type, consultant_id, company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,

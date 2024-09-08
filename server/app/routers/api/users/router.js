@@ -5,7 +5,7 @@ const {
   readCandidateValidation,
   readByConsultantValidation,
   addUserValidation,
-  updateCandidateValidation,
+  editCandidateValidation,
   deleteUserValidation,
 } = require("../../../middlewares/userValidator");
 const { hashPassword } = require("../../../middlewares/hashPassword");
@@ -17,7 +17,7 @@ const {
   readByConsultant,
   readCandidate,
   browse,
-  updateCandidate,
+  editCandidate,
   deleteUser,
 } = require("../../../controllers/userActions");
 
@@ -46,8 +46,8 @@ router.post("/", addUserValidation, hashPassword, add);
 router.put(
   "/:id",
   verifyAuthCurrent,
-  updateCandidateValidation,
-  updateCandidate
+  editCandidateValidation,
+  editCandidate
 );
 
 router.delete("/:id", verifyAuthCurrent, deleteUserValidation, deleteUser);

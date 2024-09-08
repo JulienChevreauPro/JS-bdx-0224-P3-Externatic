@@ -9,13 +9,14 @@ import AccessOfferDetailsCondition from "../../AccessOfferDetailsCondition";
 export default function CardOfferForCandidate({ offer }) {
   const { auth } = useContext(AuthContext);
   const { handleChangeModal } = useModal();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);  
 
   const handleCheckboxChange = async (e) => {
     const isChecked = e.target.checked;
     const url = `${import.meta.env.VITE_API_URL}/api/favorites`;
     const headers = {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`, 
     };
     const body = JSON.stringify({ candidateId: auth.id, offerId: offer.id });
 
