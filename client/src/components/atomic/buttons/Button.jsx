@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function Button({ name, img = null, apply, handleChange, buttonAnimate = true }) {
+function Button({ name, img = null, apply, handleChange = () => {}, buttonAnimate = true }) {
   return (
     <button
       onClick={handleChange}
@@ -19,7 +19,8 @@ Button.propTypes = {
   // eslint-disable-next-line react/require-default-props
   img: PropTypes.string,
   apply: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  handleChange: PropTypes.func,
   // eslint-disable-next-line react/require-default-props
   buttonAnimate: PropTypes.bool,
 };
