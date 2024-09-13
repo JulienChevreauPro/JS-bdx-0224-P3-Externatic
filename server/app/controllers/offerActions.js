@@ -39,8 +39,25 @@ const add = async (req, res, next) => {
   }
 };
 
+const del = async (req, res, next) => {
+  const offerId = req.params.id;
+  try {
+    const affectedRows = await tables.offer.delete(offerId);
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    console.error("Erreur lors de la suppression de l'offre :", err);
+    res.status(500).send("Erreur serveur");
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
   add,
+  del,
 };

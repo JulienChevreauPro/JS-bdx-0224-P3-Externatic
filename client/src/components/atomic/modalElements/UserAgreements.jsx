@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+
 import { useModal } from "../../../contexts/ModalContext";
 import CheckBox from "../checkBox/CheckBox";
 
-function UserAgreements() {
+function UserAgreements({ isChecked, onCheckChange }) {
   const { isClicked, handleChangeModal } = useModal();
 
   return (
@@ -30,9 +32,16 @@ function UserAgreements() {
             </Link>
           </>
         }
+        checked={isChecked}
+        onChange={onCheckChange}
+        required
       />
     )
   );
 }
 
+UserAgreements.propTypes = {
+  isChecked: PropTypes.bool.isRequired,
+  onCheckChange: PropTypes.func.isRequired,
+};
 export default UserAgreements;

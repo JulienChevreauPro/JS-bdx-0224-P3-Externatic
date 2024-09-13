@@ -6,7 +6,7 @@ import CardConsultant from "../components/atomic/card/CardConsultant";
 import PreviousPage from "../components/atomic/buttons/PreviousPage";
 
 function CandidateManagement() {
-  const candidatesData = useLoaderData();
+  const candidatesData = useLoaderData();  
 
   const userData = useContext(AuthContext);
 
@@ -52,7 +52,7 @@ function CandidateManagement() {
           ))
         ) : (
           <h2 className="text-2xl text-[var(--primary-color)] mt-20 outline outline-1 outline-[var(--primary-color)] p-10 rounded-lg">
-            Aucun candidats pour le moment...
+            Aucun candidat pour le moment...
           </h2>
         )}
       </section>

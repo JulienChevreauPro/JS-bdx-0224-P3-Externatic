@@ -4,6 +4,7 @@ const tables = require("../../database/tables");
 const verifyAuth = async (req, res, next) => {
   try {
     const user = await tables.user.readByEmailWithPassword(req.body.email);
+    
     if (user == null) {
       res.status(422).json({ error: "Invalid email or password" });
       return;

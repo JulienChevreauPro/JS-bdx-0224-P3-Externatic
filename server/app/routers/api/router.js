@@ -18,10 +18,6 @@ const technoRouter = require("./technos/router");
 
 router.use("/technos", technoRouter);
 
-const jobRouter = require("./jobs/router");
-
-router.use("/jobs", jobRouter);
-
 const companyRouter = require("./companies/router");
 
 router.use("/companies", companyRouter);

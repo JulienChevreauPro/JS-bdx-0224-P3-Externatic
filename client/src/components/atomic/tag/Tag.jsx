@@ -1,13 +1,14 @@
 import PropTypes from "prop-types";
 
-function Tag({ text, apply }) {
+function Tag({ text = null, apply }) {
   return (
     <p className={`px-2 text-center w-max max-md:text-base ${apply}`}>{text}</p>
   );
 }
 
 Tag.propTypes = {
-  text: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  text: PropTypes.string,
   apply: PropTypes.string.isRequired,
 };
 

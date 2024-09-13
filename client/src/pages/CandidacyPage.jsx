@@ -60,6 +60,7 @@ function CandidacyPage() {
           name="firstname"
           value={formData.firstname}
           handleChange={handleChange}
+          autocomplete="on"
         />
         <FormInputCandidat
           id="lastname"
@@ -69,6 +70,7 @@ function CandidacyPage() {
           name="lastname"
           value={formData.lastname}
           handleChange={handleChange}
+          autocomplete="on"
         />
         <FormInputCandidat
           id="email"
@@ -78,6 +80,7 @@ function CandidacyPage() {
           name="email"
           value={formData.email}
           handleChange={handleChange}
+          autocomplete="on"
         />
         <ButtonSubmit apply="big" name="Postuler" />
       </form>

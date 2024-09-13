@@ -39,7 +39,9 @@ FormInputConsultant.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.oneOf(["string", "number"]).isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number]).isRequired,
   type: PropTypes.oneOf(["text", "textarea"]).isRequired,
   handleChange: PropTypes.func.isRequired,
 };

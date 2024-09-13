@@ -9,13 +9,14 @@ import AccessOfferDetailsCondition from "../../AccessOfferDetailsCondition";
 export default function CardOfferForCandidate({ offer }) {
   const { auth } = useContext(AuthContext);
   const { handleChangeModal } = useModal();
-  const [isFavorite, setIsFavorite] = useState(offer.is_favorite);
+  const [isFavorite, setIsFavorite] = useState(false);  
 
   const handleCheckboxChange = async (e) => {
     const isChecked = e.target.checked;
     const url = `${import.meta.env.VITE_API_URL}/api/favorites`;
     const headers = {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`, 
     };
     const body = JSON.stringify({ candidateId: auth.id, offerId: offer.id });
 
@@ -76,7 +77,7 @@ export default function CardOfferForCandidate({ offer }) {
         )}
       </header>
       <ul className="flex gap-1 relative mb-4">
-        {offer.technos.map((techno) => (
+        {offer.technos.slice(0, 3).map((techno) => (
           <li key={techno.name}>
             <Tag text={techno.name} apply="tag" />
           </li>
@@ -112,12 +113,11 @@ CardOfferForCandidate.propTypes = {
     details: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
     salary: PropTypes.number.isRequired,
-    company_name: PropTypes.string.isRequired,
+    company_name: PropTypes.string,
     technos: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
       })
     ).isRequired,
-    is_favorite: PropTypes.bool.isRequired,
   }).isRequired,
 };

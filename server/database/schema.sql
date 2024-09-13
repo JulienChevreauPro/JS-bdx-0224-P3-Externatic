@@ -7,8 +7,8 @@ CREATE TABLE user (
   hashed_password VARCHAR(250) NOT NULL,
   role VARCHAR(80) NOT NULL DEFAULT 'candidat'
 );
-INSERT INTO user (firstname, lastname, email, phone, hashed_password, role)
-VALUES ('Alexandre', 'Moro', 'adrale@gmail.com', '123456789', '$argon2id$v=19$m=19456,t=2,p=1$tO+RzSVxG6uFPtmv7LXeKQ$hC2icKgRJLSNnY/913TVQ1xQRwJL4EnPrzGB04RGKSk', 'consultant');
+INSERT INTO user (id, firstname, lastname, email, phone, hashed_password, role)
+VALUES (1,'Alexandre', 'Moro', 'adrale@gmail.com', '123456789', '$argon2id$v=19$m=19456,t=2,p=1$Po0Rw7RWby/RJhwILfo7sA$+CUaG8cA91/oTPacbJoErc8c6ko363fHuA8EA0dMqWk', 'consultant');
 
 CREATE TABLE consultant (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -61,23 +61,6 @@ CREATE TABLE region (
     REFERENCES consultant(id)
 );
 
-CREATE TABLE job (
-  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  name VARCHAR(80) NOT NULL
-);
-
-CREATE TABLE job_candidate (
-  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  job_id INT UNSIGNED NOT NULL,
-  candidate_id INT UNSIGNED NOT NULL,
-    CONSTRAINT fk_job_candidate_job
-    FOREIGN KEY (job_id)
-    REFERENCES job(id),
-    CONSTRAINT fk_job_candidate_candidate
-    FOREIGN KEY (candidate_id)
-    REFERENCES candidate(id)
-);
-
 CREATE TABLE techno (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(80) NOT NULL
@@ -102,8 +85,6 @@ CREATE TABLE company (
   logo VARCHAR(255),
   description TEXT
 );
-
-
 
 CREATE TABLE offer (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,

@@ -4,6 +4,7 @@ export default async function createOffer(url, offer, http) {
       method: http,
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify(offer),
     });

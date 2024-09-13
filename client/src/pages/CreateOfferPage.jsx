@@ -1,11 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, useLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import createOffer from "../services/createOffer";
+
 import ReturnButton from "../components/atomic/buttons/PreviousPage";
 import FormInputConsultant from "../components/atomic/inputConsultant/formConsultant/FormInputConsultant";
 import FormDropDown from "../components/atomic/inputConsultant/formConsultant/FormDropDown";
-
 import ButtonSubmit from "../components/atomic/buttons/ButtonSubmit";
 
 import { AuthContext } from "../contexts/AuthContext";
@@ -19,11 +20,10 @@ function CreateOfferPage() {
       setAuthId(userData.auth.id);
     }
   }, [userData, authId]);
-  
+
   const navigate = useNavigate();
   const offersUrl = "/api/offers";
   const [technos, companies] = useLoaderData();
-
   const [formData, setFormData] = useState({
     title: "",
     type: "",
@@ -62,19 +62,25 @@ function CreateOfferPage() {
 
     try {
       const response = await createOffer(offersUrl, offerData, "POST");
-      const data = await response.json();
+
       if (response.ok) {
+        toast.success("Offre créée avec succès !");
         navigate(`/dashboardConsultant/${authId}`);
+      } else {
+        toast.error("Erreur lors de la création de l'offre !!");
       }
-      return data;
     } catch (err) {
-      return err;
+      toast.error("Erreur lors de la gestion de la création");
     }
   };
 
+
   return (
     <main className="min-h-screen">
-      <ReturnButton source={`/dashboardConsultant/${authId}`} marginLeft="ml-10" />
+      <ReturnButton
+        source={`/dashboardConsultant/${authId}`}
+        marginLeft="ml-10"
+      />
       <h1 className="my-6 text-center text-[var(--secondary-color)]">
         Ajoutez une offre
       </h1>
@@ -89,10 +95,10 @@ function CreateOfferPage() {
           multiple={false}
           handleChange={handleChange}
           options={[
-            { name: "Développeur Web", id: "Développeur Web" },
-            { name: "Développeur FullStack", id: "Développeur FullStack" },
-            { name: "Développeur FrontEnd", id: "Développeur FrontEnd" },
-            { name: "Développeur BackEnd", id: "Développeur BackEnd" },
+            { name: "Développeur FullStack", id: "FullStack" },
+            { name: "Développeur Front-End", id: "Front-End" },
+            { name: "Développeur Back-End", id: "Back-End" },
+            { name: "Développeur Web", id: "DevWeb" },
           ]}
         />
         <FormDropDown
@@ -120,6 +126,7 @@ function CreateOfferPage() {
           id="city"
           name="city"
           label="Ville"
+          type="text"
           value={formData.city}
           handleChange={handleChange}
         />
@@ -143,6 +150,7 @@ function CreateOfferPage() {
         <FormInputConsultant
           id="salary"
           name="salary"
+          type="text"
           label="Salaire annuel proposé (en Euro)"
           value={formData.salary}
           handleChange={handleChange}
@@ -155,7 +163,7 @@ function CreateOfferPage() {
           value={formData.advantages}
           handleChange={handleChange}
         />
-        <ButtonSubmit apply="big" name="Publier"/>
+        <ButtonSubmit apply="big" name="Publier" />
       </form>
     </main>
   );

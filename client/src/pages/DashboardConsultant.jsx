@@ -21,22 +21,22 @@ function DashboardConsultant() {
     <main className="flex flex-col gap-20 min-h-screen">
       <PreviousPage marginLeft="ml-10" source="/" />
       <h1 className="text-2xl self-center text-[var(--primary-color)]">
-        Bonjour, {consultantData.firstname} {consultantData.lastname}
+        Bonjour {consultantData.firstname} {consultantData.lastname}
       </h1>
       <Link
         to={`/candidateManagement/${authId}`}
-        className="bg-[var(--primary-color)] self-center text-[var(--primary-background-color)] rounded-lg w-64 h-20 text-center content-center"
+        className="mx-auto w-80 h-20 z-10 bg-[var(--primary-color)] rounded-md relative font-semibold text-[var(--primary-background-color)] max-md:w-64 max-md:h-20 max-md:text-sm text-center content-center"
       >
         Gestion Candidats
       </Link>
       <Link
         to="/offersCreate"
-        className="bg-[var(--primary-color)] self-center text-[var(--primary-background-color)] rounded-lg w-64 h-20 text-center content-center"
+        className="mx-auto w-80 h-20 z-10 bg-[var(--primary-color)] rounded-md relative font-semibold text-[var(--primary-background-color)] max-md:w-64 max-md:h-20 max-md:text-sm text-center content-center"
       >
         Gestion Offres
       </Link>
       <Button
-        apply="medium self-center"
+        apply="big self-center"
         name="Déconnexion"
         handleChange={logout}
       />

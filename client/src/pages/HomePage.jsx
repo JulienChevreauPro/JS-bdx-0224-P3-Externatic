@@ -3,6 +3,7 @@ import Slider from "../components/Slider";
 import Values from "../components/Values";
 
 function HomePage() {
+
   return (
     <main className="relative">
       <Presentation />

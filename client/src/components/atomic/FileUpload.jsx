@@ -41,7 +41,7 @@ export default function FileUpload() {
     >
       <Dropzone
         onDrop={(acceptedFiles) => setFile(acceptedFiles[0])}
-        accept="text/pdf"
+        accept={{ 'application/pdf': [] }}
       >
         {({ getRootProps, getInputProps }) => (
           <label

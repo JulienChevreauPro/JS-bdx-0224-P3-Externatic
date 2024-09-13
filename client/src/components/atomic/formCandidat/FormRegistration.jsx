@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 
 import FormInputCandidat from "../inputCandidat/formCandidat/FormInputCandidat";
@@ -9,12 +11,29 @@ export default function FormRegistration({
   handleChange,
   formData,
   handleSubmitRegistration,
-}) {
+}) {  
+
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
+  const onSubmitForm = (e) => {
+    e.preventDefault();
+    
+    if (!isChecked) {
+      toast.error("Vous devez accepter les CGU pour continuer.");
+      return;
+    }
+    handleSubmitRegistration();
+  };
+
   return (
     <form
       id="registration"
       method="POST"
       className="flex flex-col items-center"
+      onSubmit={onSubmitForm}
     >
       <FormInputCandidat
         handleChange={handleChange}
@@ -23,7 +42,9 @@ export default function FormRegistration({
         label="Prénom"
         type="text"
         name="firstname"
+        autoComplete="on"
       />
+
       <FormInputCandidat
         handleChange={handleChange}
         value={formData.lastname}
@@ -31,7 +52,9 @@ export default function FormRegistration({
         label="Nom"
         type="text"
         name="lastname"
+        autoComplete="on"
       />
+
       <FormInputCandidat
         handleChange={handleChange}
         value={formData.email}
@@ -39,7 +62,9 @@ export default function FormRegistration({
         label="E-mail"
         type="email"
         name="email"
+        autoComplete="on"
       />
+
       <FormInputCandidat
         handleChange={handleChange}
         value={formData.password}
@@ -47,12 +72,17 @@ export default function FormRegistration({
         label="Mot de passe"
         type="password"
         name="password"
+        autoComplete="off"
       />
+
       <footer className="mt-10 mx-4 flex flex-col gap-10 items-center">
-        <UserAgreements />
+        <UserAgreements
+          isChecked={isChecked}
+          onCheckChange={handleCheckChange}
+        />
         <ChangeRegisterConnexion />
         <ButtonSubmit
-          onClick={handleSubmitRegistration}
+          onClick={onSubmitForm}
           apply="big"
           name="Valider mon inscription"
         />

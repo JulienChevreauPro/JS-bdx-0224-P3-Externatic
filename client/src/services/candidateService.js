@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
-const useDashboardCandidateService = (data, logout, navigate, Reload) => {
+const useDashboardCandidateService = (data, logout, navigate) => {
   const [favorites, setFavorites] = useState([]);
   const [formData, setFormData] = useState({
     email: data.email || "",
     phone: data.phone || "",
-    name: data.name || "",
+    id: data.id || 0,
   });
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchFavorites = async () => {
+      setFavorites([]);
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/favorites`,
@@ -27,6 +29,7 @@ const useDashboardCandidateService = (data, logout, navigate, Reload) => {
       } catch (err) {
         throw new Error("Error fetching favorites", err);
       }
+      
     };
 
     fetchFavorites();
@@ -49,16 +52,23 @@ const useDashboardCandidateService = (data, logout, navigate, Reload) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(formData),
         }
       );
+
       if (!response.ok) {
+        toast.error("Nous n'avons pas pu mettre à jour votre profil...");
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       await response.json();
+
+      toast.success("Profil modifié avec succès !!");
+      setIsEditing(false);
     } catch (err) {
-      throw new Error("Error updating user:", err);
+      toast.error("Erreur lors de la gestion du compte");
+      console.error(`Error updating user: ${err}`);
     }
   };
 
@@ -74,13 +84,15 @@ const useDashboardCandidateService = (data, logout, navigate, Reload) => {
         }
       );
       if (!response.ok) {
+        toast.error("Votre compte n'a pas pu être supprimé...");
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      toast.success("Compte supprimé !!");
       logout();
       navigate("/");
-      Reload();
     } catch (err) {
-      throw new Error("Error deleting account:", err);
+      toast.error("Erreur lors de la suppression du compte");
+      console.error("Error deleting account:", err);
     }
   };
 

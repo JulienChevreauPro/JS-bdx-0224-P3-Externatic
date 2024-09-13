@@ -7,9 +7,14 @@ export default function FormConnexion({
   handleChange,
   formData,
   handleSubmitLogin,
-}) {
+}) {  
+
   return (
-    <form id="connexion" method="POST" className="flex flex-col items-center">
+    <form
+      id="connexion"
+      method="POST"
+      className="flex flex-col items-center"
+    >
       <FormInputCandidat
         handleChange={handleChange}
         value={formData.email}
@@ -17,7 +22,9 @@ export default function FormConnexion({
         label="E-mail"
         type="email"
         name="email"
+        autoComplete="on"
       />
+
       <FormInputCandidat
         handleChange={handleChange}
         value={formData.password}
@@ -25,7 +32,9 @@ export default function FormConnexion({
         label="Mot de passe"
         type="password"
         name="password"
+        autoComplete="off"
       />
+
       <footer className="mt-10 mx-4 flex flex-col gap-10 items-center">
         <ChangeRegisterConnexion />
         <ButtonSubmit

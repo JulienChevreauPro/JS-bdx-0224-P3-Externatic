@@ -1,9 +1,8 @@
-import { createContext, useContext, useEffect, useState, useMemo } from "react";
+import { createContext, useContext, useEffect, useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import decodeToken from "../services/decodedToken";
 import ScrollToTop from "../services/scrollToTop";
-import Reload from "../services/reload";
 
 export const AuthContext = createContext();
 
@@ -18,14 +17,17 @@ export default function AuthProvider({ children }) {
       setAuth(userData);
     }
   }, []);
-  const logout = () => {
+  const logout = useCallback(() => {
     setAuth(null);
     localStorage.removeItem("token");
     navigate("/");
-    Reload();
     ScrollToTop();
-  };
-  const contextValue = useMemo(() => ({ auth, setAuth, logout, Reload }), [auth]);
+  }, [navigate]);
+  const contextValue = useMemo(
+    () => ({ auth, setAuth, logout }),
+    [auth, logout]
+  );
+
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );

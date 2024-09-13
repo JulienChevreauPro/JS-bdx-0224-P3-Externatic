@@ -24,6 +24,7 @@ function OfferPage() {
 
   const offers = useLoaderData();
   const { formData, handleChange } = useLogicForm();
+  
   return (
     <main className="m-4 mt-12 flex flex-col min-h-screen">
       <section
@@ -63,7 +64,9 @@ function OfferPage() {
           <CardOfferForCandidate key={filteredOffer.id} offer={filteredOffer} />
         ))}
         {filterOffers(offers, formData).length === 0 && (
-          <p className="flex items-center justify-center my-20 w-full h-20 max-sm:w-64 max-sm:h-14 bg-[var(--secondary-background-color)] rounded-lg text-[var(--primary-color)] border border-[var(--primary-color)]">
+          <p className="flex items-center justify-center my-20 w-full h-20 max-sm:w-64 max-sm:h-14
+          bg-[var(--secondary-background-color)] rounded-lg text-[var(--primary-color)]
+          border border-[var(--primary-color)]">
             Aucune offre ne correspond à votre recherche.
           </p>
         )}

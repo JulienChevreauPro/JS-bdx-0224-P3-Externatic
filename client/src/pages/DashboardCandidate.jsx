@@ -21,7 +21,7 @@ import useDashboardCandidateService from "../services/candidateService";
 function DashboardCandidate() {
   const { logout } = useContext(AuthContext);
   const data = useLoaderData();
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
 
   const {
     favorites,
@@ -43,7 +43,7 @@ function DashboardCandidate() {
                 {data.firstname} {data.lastname}
               </h1>
             </li>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+            <form className="flex flex-col gap-2">
               {isEditing ? (
                 <>
                   <FormInputCandidat
@@ -53,6 +53,7 @@ function DashboardCandidate() {
                     label="Mail"
                     type="email"
                     name="email"
+                    autocomplete="on"
                   />
                   <FormInputCandidat
                     handleChange={handleChange}
@@ -61,11 +62,12 @@ function DashboardCandidate() {
                     label="Tel"
                     type="text"
                     name="phone"
+                    autocomplete="on"
                   />
                   <ButtonSubmit
                     apply="big"
                     name="Mettre à jour"
-                    onClick={() => setIsEditing(false)}
+                    onClick={handleSubmit}
                   />
                 </>
               ) : (
@@ -103,11 +105,6 @@ function DashboardCandidate() {
         </ul>
         <h2 className="text-[var(--primary-color)] pb-3 pt-10">Mes favoris</h2>
         <ul className="flex flex-wrap gap-5">
-          {favorites.length === 1 ? (
-            <li key={favorites[0].id}>
-              <CardOfferForCandidate offer={favorites[0]} />
-            </li>
-          ) : (
             <Swiper
               slidesPerView="1"
               spaceBetween={10}
@@ -131,7 +128,7 @@ function DashboardCandidate() {
                 favorites.map((offer) => (
                   <SwiperSlide key={offer.id}>
                     <li key={offer.id}>
-                      <CardOfferForCandidate offer={offer} />
+                      <CardOfferForCandidate offer={offer}/>
                     </li>
                   </SwiperSlide>
                 ))
@@ -139,7 +136,6 @@ function DashboardCandidate() {
                 <li className="list-none">Pas de favoris sélectionnés</li>
               )}
             </Swiper>
-          )}
         </ul>
       </article>
       <footer className="flex flex-col items-center gap-5 p-10">

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
+
 import { useModal } from "../contexts/ModalContext";
 
 import NavAccess from "../services/NavAccess";
@@ -13,7 +14,6 @@ function ModalRegistration({
   handleChange,
 }) {
   const modalRef = useRef(null);
-
   const { handleChangeModal, isModalOpen, isModalVisible } = useModal();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function ModalRegistration({
   return (
     <dialog
       ref={modalRef}
-      className={` ${isModalOpen} ${isModalVisible} absolute top-0 bg-[var(--primary-background-color)] z-50 pb-16 flex flex-col items-center mt-6 border border-[var(--primary-color)] rounded-md shadow-lg custom-shadow md:mx-0 mx-auto md:w-[80vh] left-1/2 transform -translate-x-1/2`}
+      className={` ${isModalOpen} ${isModalVisible} absolute top-0 bg-[var(--primary-background-color)] z-40 pb-16 flex flex-col items-center mt-6 border border-[var(--primary-color)] rounded-md shadow-lg custom-shadow md:mx-0 mx-auto md:w-[80vh] left-1/2 transform -translate-x-1/2`}
     >
       <header className="mb-10">
         <button

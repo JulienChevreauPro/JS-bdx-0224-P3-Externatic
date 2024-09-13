@@ -33,7 +33,7 @@ function Presentation() {
         l’humain est tout simplement indispensable.
       </p>
       <Button
-        apply="medium"
+        apply="big"
         name="S'inscrire"
         handleChange={handleChangeModal}
       />

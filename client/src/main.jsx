@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import fetchApi from "./services/fetchApi";
@@ -37,19 +38,25 @@ const router = createBrowserRouter([
       {
         path: "/offers",
         element: <OfferPage />,
-        loader: async () => fetchApi(offersUrl),
+        loader: () => fetchApi(offersUrl),
       },
       {
         path: "/offers/:id",
         element: (
-          <ProtectedRoute element={<OfferDetails />} roles={["candidat"]} />
+          <ProtectedRoute
+            element={<OfferDetails />}
+            requiredRoles={["candidat", "consultant"]}
+          />
         ),
         loader: ({ params }) => fetchApi(`${offersUrl}/${params.id}`),
       },
       {
         path: "candidacy/:offerId",
         element: (
-          <ProtectedRoute element={<CandidacyPage />} roles={["candidat"]} />
+          <ProtectedRoute
+            element={<CandidacyPage />}
+            requiredRoles={["candidat"]}
+          />
         ),
         loader: () => fetchApi(usersUrl),
       },
@@ -58,7 +65,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={<CreateOfferPage />}
-            roles={["consultant"]}
+            requiredRoles={["consultant"]}
           />
         ),
         loader: async () => fetchMultipleApis(urls),
@@ -68,7 +75,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={<DashboardConsultant />}
-            roles={["consultant"]}
+            requiredRoles={["consultant"]}
           />
         ),
         loader: ({ params }) => fetchApi(`${usersUrl}/${params.id}`),
@@ -78,7 +85,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={<DashboardCandidate />}
-            roles={["candidat"]}
+            requiredRoles={["candidat"]}
           />
         ),
         loader: ({ params }) => fetchApi(`${usersUrl}/${params.id}`),
@@ -88,7 +95,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={<CandidateManagement />}
-            roles={["consultant"]}
+            requiredRoles={["consultant"]}
           />
         ),
         loader: ({ params }) =>
@@ -111,7 +118,6 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
     ],
-    loader: async () => fetchApi(usersUrl),
   },
 ]);
 
@@ -120,5 +126,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
+    <ToastContainer />
   </React.StrictMode>
 );

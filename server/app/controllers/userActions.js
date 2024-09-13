@@ -23,18 +23,18 @@ const read = async (req, res, next) => {
   }
 };
 
-const readCandidates = async (req, res, next) => {
+const readCandidate = async (req, res, next) => {
   try {
-    const candidatesData = await tables.user.readCandidates(req.params.id);
-    res.json(candidatesData);
+    const candidateData = await tables.user.readCandidate(req.params.id);
+    res.json(candidateData);
   } catch (err) {
     next(err);
   }
 };
 
-const readByCandidates = async (req, res, next) => {
+const readByConsultant = async (req, res, next) => {
   try {
-    const candidates = await tables.user.readByCandidates(req.params.id);
+    const candidates = await tables.user.readByConsultant(req.params.id);
     if (!candidates || candidates.length === 0) {
       res.sendStatus(404);
     } else {
@@ -47,17 +47,17 @@ const readByCandidates = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   const user = req.body;
-
   try {
-    const insertId = await tables.user.create(user);
-
-    res.status(201).json({ insertId });
+    const insertId = await tables.user.create(user);  
+    const newUser = await tables.user.read(insertId);
+    
+    res.status(201).json(newUser);
   } catch (err) {
     next(err);
   }
 };
 
-const updateCandidate = async (req, res) => {
+const editCandidate = async (req, res) => {
   const { email, phone } = req.body;
   const candidateId = req.params.id;
 
@@ -83,9 +83,9 @@ const deleteUser = async (req, res, next) => {
 module.exports = {
   add,
   read,
-  readByCandidates,
-  readCandidates,
+  readByConsultant,
+  readCandidate,
   browse,
-  updateCandidate,
+  editCandidate,
   deleteUser,
 };

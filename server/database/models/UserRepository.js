@@ -7,21 +7,22 @@ class UserRepository extends AbstractRepository {
 
   async readAll() {
     const [rows] = await this.database.query(
-      `select id, firstname, lastname, email from ${this.table}`
+      `SELECT id, firstname, lastname, email FROM ${this.table}`
     );
     return rows;
   }
 
   async create(user) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (firstname, lastname, email, hashed_password) values(?, ?, ?, ?)`,
+      `INSERT INTO ${this.table} (firstname, lastname, email, hashed_password) VALUES(?, ?, ?, ?)`,
       [user.firstname, user.lastname, user.email, user.hashedPassword]
     );
-    const [candidat] = await this.database.query(
-      `insert into candidate (user_id) values(?)`,
+
+    await this.database.query(
+      `INSERT INTO candidate (user_id) VALUES(?)`,
       [result.insertId]
     );
-    return candidat.insertId;
+    return result.insertId;
   }
 
   async read(id) {
@@ -38,12 +39,12 @@ class UserRepository extends AbstractRepository {
       (
         SELECT JSON_ARRAYAGG(JSON_OBJECT('name', techno.name))
         FROM techno_candidate
-        left JOIN techno ON techno_candidate.techno_id = techno.id
+        LEFT JOIN techno ON techno_candidate.techno_id = techno.id
         WHERE techno_candidate.candidate_id = candidate.id
       ) AS technos
   FROM ${this.table}
-  left JOIN candidate ON user.id = candidate.user_id
-   left JOIN region ON region.candidate_id = candidate.id
+  LEFT JOIN candidate ON user.id = candidate.user_id
+  LEFT JOIN region ON region.candidate_id = candidate.id
   WHERE user.id = ?
       `,
       [id]
@@ -53,18 +54,18 @@ class UserRepository extends AbstractRepository {
 
   async readByEmailWithPassword(email) {
     const [rows] = await this.database.query(
-      `select id, email, hashed_password, role from ${this.table} where email = ?`,
+      `SELECT id, email, hashed_password, role FROM ${this.table} WHERE email = ?`,
       [email]
     );
     return rows[0];
   }
 
-  async readCandidates(id) {
+  async readCandidate(id) {
     const [rows] = await this.database.query(
-      `select firstname, lastname, email, cv.path AS cv_path,
+      `SELECT firstname, lastname, email, cv.path AS cv_path,
       cv.name AS cv_name
     FROM user u
-    JOIN candidate AS c ON u.id = c.user_id
+    INNER JOIN candidate AS c ON u.id = c.user_id
     LEFT JOIN cv ON c.id = cv.candidate_id
     WHERE u.id = ?`,
       [id]
@@ -72,7 +73,7 @@ class UserRepository extends AbstractRepository {
     return rows;
   }
 
-  async readByCandidates(id) {
+  async readByConsultant(id) {
     const [rows] = await this.database.query(
       `SELECT 
       u.id,
@@ -86,11 +87,11 @@ class UserRepository extends AbstractRepository {
         JSON_OBJECT('name', t.name)
       ) AS technos
     FROM user AS u
-    JOIN candidate AS c ON u.id = c.user_id
-    JOIN candidacy AS cd ON c.id = cd.candidate_id
-    JOIN offer AS o ON cd.offer_id = o.id
-    JOIN consultant AS con ON o.consultant_id = con.id
-    JOIN user AS con_user ON con.user_id = con_user.id
+    INNER JOIN candidate AS c ON u.id = c.user_id
+    INNER JOIN candidacy AS cd ON c.id = cd.candidate_id
+    INNER JOIN offer AS o ON cd.offer_id = o.id
+    INNER JOIN consultant AS con ON o.consultant_id = con.id
+    INNER JOIN user AS con_user ON con.user_id = con_user.id
     LEFT JOIN techno_candidate AS tc ON c.id = tc.candidate_id
     LEFT JOIN techno AS t ON tc.techno_id = t.id
     LEFT JOIN cv ON c.id = cv.candidate_id
@@ -126,7 +127,9 @@ class UserRepository extends AbstractRepository {
         [id]
       );
 
-      await this.database.query(`DELETE FROM candidate WHERE user_id = ?`, [id]);
+      await this.database.query(`DELETE FROM candidate WHERE user_id = ?`, [
+        id,
+      ]);
 
       await this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
 
